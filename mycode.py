@@ -28,3 +28,6 @@ file_path = os.path.join(data_dir, 'sample_data.csv')
 df.to_csv(file_path, index=False)
 
 print(f"CSV file saved to {file_path}")
+
+if __name__=="__main__":
+    print("hello")
