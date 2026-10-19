@@ -21,6 +21,6 @@ jobs:
       - name: Lint
         run: ruff check --select E4,E7,E9,F mycode.py tests
       - name: Test
-        run: pytest -q
+        run: python -m pytest -q
       - name: Compile
         run: python -m compileall -q mycode.py tests
