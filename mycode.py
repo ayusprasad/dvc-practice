@@ -1,33 +1,28 @@
+from __future__ import annotations
+
+from pathlib import Path
+
 import pandas as pd
-import os
 
-# Create a sample DataFrame with column names
-data = {'Name': ['Alice', 'Bob', 'Charlie'],
-    'Age': [25, 30, 35],
-    'City': ['New York', 'Los Angeles', 'Chicago']
-    }
 
-df = pd.DataFrame(data)
+def build_sample_data() -> pd.DataFrame:
+    """Return the small versioned sample table."""
+    return pd.DataFrame(
+        {
+            "Name": ["Alice", "Bob", "Charlie", "GF1", "GF18"],
+            "Age": [25, 30, 35, 20, 9],
+            "City": ["New York", "Los Angeles", "Chicago", "City1", "Kandirvan"],
+        }
+    )
 
-# # Adding new row to df for V2
-new_row_loc = {'Name': 'GF1', 'Age': 20, 'City': 'City1'}
-df.loc[len(df.index)] = new_row_loc
 
-# # Adding new row to df for V3
-new_row_loc2 = {'Name': 'GF18', 'Age': 9, 'City': 'kandirvan'}
-df.loc[len(df.index)] = new_row_loc2
+def save_sample_data(output_path: Path = Path("data/sample_data.csv")) -> Path:
+    """Write the sample table to CSV and return its path."""
+    output_path.parent.mkdir(parents=True, exist_ok=True)
+    build_sample_data().to_csv(output_path, index=False)
+    return output_path
 
-# Ensure the "data" directory exists at the root level
-data_dir = 'data'
-os.makedirs(data_dir, exist_ok=True)
 
-# Define the file path
-file_path = os.path.join(data_dir, 'sample_data.csv')
-
-# Save the DataFrame to a CSV file, including column names
-df.to_csv(file_path, index=False)
-
-print(f"CSV file saved to {file_path}")
-
-if __name__=="__main__":
-    print("hello")
+if __name__ == "__main__":
+    path = save_sample_data()
+    print(f"CSV saved to {path}")
